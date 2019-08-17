@@ -12,51 +12,45 @@
 		<h:form>
 			<p:breadCrumb>
 				<p:menuitem value="Home" url="#" />
-				<p:menuitem value="Pacientes" url="#" />
+				<p:menuitem value="Usuarios" url="#" />
 			</p:breadCrumb>
 		</h:form>
 
 		<p:spacer height="10" />
 
 
-
 		<h:form>
 			<p:messages showDetail="true" closable="true" >
 				<p:autoUpdate/>
 			</p:messages>
-		 <p:panel id="cadastroPacientes" header="Cadastro de Pacientes" style="margin-bottom:20px">
+		 <p:panel id="cadastroUsuarios" header="Cadastro de Usuarios" style="margin-bottom:20px">
 		 
 			<h:panelGrid columns="2">
 			
 				<span class="ui-float-label"> 
-					<h:inputHidden value="#{pacienteController.paciente.id}" /> 
+					<h:inputHidden value="#{usuarioController.usuario.id}" /> 
 				</span>
 				
-				<h3>Nome do Paciente</h3>
+				<h3>Nome do usuário</h3>
 				<span class="ui-float-label"> 
-					<h:inputText id="nome" value="#{pacienteController.paciente.nome}" required="true"/> 
+					<h:inputText id="nome" value="#{usuarioController.usuario.nome}" required="true"/>
 				</span>
 				
-				<h3>Telefone do paciente</h3>
+				<h3>Login do usuário</h3>
 				<span class="ui-float-label"> 
-					<h:inputText id="email" value="#{pacienteController.paciente.telefone}" required="true"/>
+					<h:inputText id="email" value="#{usuarioController.usuario.login}" required="true"/>
 				</span>
 				
-				<h3>CPF do paciente</h3>
+				<h3>Senha do usuario</h3>
 				<span class="ui-float-label"> 
-					<h:inputText id="cpf" value="#{pacienteController.paciente.cpf}" required="true"/>
-				</span>
-				
-				<h3>Data de Nascimento</h3>
-				<span class="ui-float-label"> 
-					<p:datePicker id="popup" value="#{pacienteController.paciente.dataNascimento}" />
+					<h:inputSecret id="password" value="#{usuarioController.usuario.senha}" required="true"/>
 				</span>
 			
 			</h:panelGrid>
 			
 		</p:panel>
 		
-			<p:commandButton action="#{pacienteController.salvarPaciente()}" value="Salvar" />
+			<p:commandButton action="#{usuarioController.addUsuario()}" value="Salvar" />
 		
 		</h:form>
 

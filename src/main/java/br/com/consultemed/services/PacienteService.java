@@ -27,4 +27,8 @@ public class PacienteService {
 	public List<Paciente> listarPacientesPorNome (String nome) {
 		return dao.listarPacientesPorNome(nome);
 	}
+	
+	public Paciente buscarPacientePorCPF (String cpf) {
+		return dao.buscarPacientePorCpf(cpf);
+	}
 }

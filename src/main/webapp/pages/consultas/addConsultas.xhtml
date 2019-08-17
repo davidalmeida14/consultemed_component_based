@@ -31,14 +31,14 @@
 					<h:inputHidden value="#{consultaController.consulta.id}" /> 
 				</span>
 				
-				<h3>Nome do Paciente</h3>
+				<h3>CPF do Paciente</h3>
 				<span class="ui-float-label"> 
-					<p:autoComplete id="acSimple2" value="#{consultaController.pacientes}" completeMethod="#{consultaController.completePaciente}" />
+					<h:inputText id="cpf" value="#{consultaController.consulta.paciente.cpf}" required="true"/> 
 				</span>
 				
-				<h3>Nome do médico</h3>
+				<h3>CRM do Médico</h3>
 				<span class="ui-float-label"> 
-					<p:autoComplete id="acSimple" value="#{consultaController.txt1}" completeMethod="#{consultaController.completeText}" />
+					<h:inputText id="nome" value="#{consultaController.consulta.medico.crm}" required="true"/> 
 				</span>
 				 
 				<h3>Data da Consulta</h3>

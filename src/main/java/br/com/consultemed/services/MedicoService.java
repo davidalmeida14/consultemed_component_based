@@ -35,4 +35,7 @@ public class MedicoService {
 		return this.dao.listarMedicosPorNome(nome);
 	}
 	
+	public Medico buscarMedicoPorCRM (String crm) {
+		return this.dao.buscarMedicoPorCRM(crm);
+	}
 }

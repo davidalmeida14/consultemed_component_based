@@ -4,13 +4,11 @@
 package br.com.consultemed.repository.repositories;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import br.com.consultemed.models.Medico;
 import br.com.consultemed.utils.JPAUtils;
@@ -101,6 +99,13 @@ public class MedicoRepository {
 			factory.close();
 		}
 
+	}
+
+	public Medico buscarMedicoPorCRM(String crm) {
+		this.factory = emf.createEntityManager();
+		Query query = factory.createQuery("SELECT M From Medico M Where M.crm = :crm");
+		query.setParameter("crm", "crm");
+		return (Medico) query.getSingleResult();
 	}
 
 }

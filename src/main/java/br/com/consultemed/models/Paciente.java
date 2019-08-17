@@ -11,13 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode
+
 @Entity
 @Table(name = "TB_PACIENTE")
 public class Paciente implements Serializable {
@@ -29,18 +26,33 @@ public class Paciente implements Serializable {
 
 	@Id
 	@Column
+	@Getter
+	@Setter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Getter
+	@Setter
 	@Column
 	private String nome;
-	
+
+	@Getter
+	@Setter
 	@Column
 	private String telefone;
-	
+
+	@Getter
+	@Setter
 	@Column
 	private Date dataNascimento;
 
+	@Getter
+	@Setter
+	@Column
+	private String cpf;
+	
+	@Getter
+	@Setter
 	@OneToOne
 	private Consulta consulta;
 }

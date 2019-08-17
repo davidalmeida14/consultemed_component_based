@@ -58,4 +58,9 @@ public class PacienteController {
 		listarPacientes();
 		return "/pages/pacientes/pacientes.xhtml";
 	}
+	
+	public String editar() {
+		this.paciente = this.pacienteEditar;
+		return "/pages/pacientes/addPacientes.xhtml?faces-redirect=true";
+	}
 }

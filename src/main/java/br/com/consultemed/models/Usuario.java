@@ -50,4 +50,9 @@ public class Usuario implements Serializable{
 	@Column(name = "SENHA")
 	private String senha;
 	
+	@Getter
+	@Setter
+	@Column(name = "NOME")
+	private String nome;
+	
 }

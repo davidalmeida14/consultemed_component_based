@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
-import br.com.consultemed.models.Medico;
 import br.com.consultemed.models.Paciente;
 import br.com.consultemed.utils.JPAUtils;
 
@@ -95,6 +94,14 @@ public class PacienteRepository {
 		} finally {
 			factory.close();
 		}
+	}
+
+	public Paciente buscarPacientePorCpf(String cpf) {
+		this.factory = em.createEntityManager();
+		Query query = factory.createQuery("SELECT P FROM Paciente P Where P.cpf = :cpf");
+		query.setParameter("cpf", cpf);
+		return (Paciente) query.getSingleResult();
+		
 	}
 	
 }

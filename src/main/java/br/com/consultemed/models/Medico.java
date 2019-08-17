@@ -11,9 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -62,7 +62,7 @@ public class Medico implements Serializable{
 	
 	@Getter
 	@Setter
-	@ManyToMany
+	@OneToMany
 	private List<Consulta> consultas;
 	
 }

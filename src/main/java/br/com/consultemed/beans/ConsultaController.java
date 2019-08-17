@@ -1,7 +1,6 @@
 package br.com.consultemed.beans;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -34,30 +33,25 @@ public class ConsultaController {
 	private String pacientes;
 
 	@Inject
-	@Getter
-	@Setter
 	private Consulta consulta;
 
 	@Getter
 	@Setter
 	private Consulta consultaEditar;
 
-	@Getter
-	@Setter
-	private String txt1;
-
-	@Getter
-	@Setter
-	private String txt2;
 
 	@Inject
-	ConsultaService consultaService;
+	private ConsultaService consultaService;
 
 	@Inject
 	private MedicoService medicoService;
 
 	@Inject
 	private PacienteService pacienteService;
+	
+	private String crmMedico;
+	
+	private String cpfPaciente;
 
 	public List<Consulta> listarConsultas() {
 		this.consultas = consultaService.listarConsultas();
@@ -70,14 +64,16 @@ public class ConsultaController {
 	}
 
 	public String salvarConsulta() throws Exception {
-		Medico medico = new Medico();
-		medico = medicoService.listaMedicoPorNome(this.txt1.trim()).stream().findFirst().get();
-		Paciente paciente = new Paciente();
-		paciente = pacienteService.listarPacientesPorNome(this.txt2.trim()).stream().findFirst().get();
-
-		this.consulta.setPaciente(paciente);
-		this.consulta.setMedico(Arrays.asList(medico));
-
+		
+//		Medico medico = new Medico();
+//		medico.setNome(crmMedico);
+//		
+//		Paciente paciente = new Paciente();
+//		paciente.setCpf(cpfPaciente);
+//		
+//		this.consulta.setMedico(medico);
+//		this.consulta.setPaciente(paciente);
+		
 		this.consultaService.salvarConsulta(this.consulta);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Consulta para o paciente" + consulta.getPaciente().getNome() + ", agendada com sucesso", null));
@@ -123,6 +119,30 @@ public class ConsultaController {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("Item Selected", event.getObject().toString()));
 		this.pacientes = event.getObject().toString();
+	}
+
+	public String getCpfPaciente() {
+		return cpfPaciente;
+	}
+
+	public void setCpfPaciente(String cpfPaciente) {
+		this.cpfPaciente = cpfPaciente;
+	}
+
+	public String getCrmMedico() {
+		return crmMedico;
+	}
+
+	public void setCrmMedico(String crmMedico) {
+		this.crmMedico = crmMedico;
+	}
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
 	}
 
 }
