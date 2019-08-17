@@ -14,6 +14,4 @@ import javax.inject.Inject;
 public class UsuarioController{
 
 	
-	
-	
 }

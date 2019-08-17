@@ -43,6 +43,26 @@ public class MedicoRepository {
 
 		return medicos;
 	}
+	
+	public List<Medico> listarMedicosPorNome(String nome) throws Exception {
+		this.factory = emf.createEntityManager();
+		List<Medico> medicos = new ArrayList<Medico>();
+		try {
+			factory.getTransaction().begin();
+			Query query = this.factory.createQuery("SELECT m FROM Medico m Where m.nome like :nome");
+			query.setParameter("nome",nome + "%");
+			factory.getTransaction().commit();
+			return query.getResultList();
+
+		} catch (Exception e) {
+			e.getMessage();
+			this.factory.getTransaction().rollback();
+		} finally {
+			factory.close();
+		}
+
+		return medicos;
+	}
 
 	public void salvarMedico(Medico medico) {
 		this.factory = emf.createEntityManager();

@@ -22,6 +22,7 @@ public class UsuarioRepository {
 	EntityManager factory = emf.createEntityManager();
 	
 	public List<Usuario> listaUsuarios() {
+		this.factory = emf.createEntityManager();
 		Query query = this.factory.createQuery("SELECT object(u) FROM Usuario as u");
 		return query.getResultList();
 	}

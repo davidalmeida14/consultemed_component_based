@@ -30,4 +30,9 @@ public class MedicoService {
 	public void deletarMedico(Long id) throws Exception {
 		this.dao.deleteById(id);
 	}
+	
+	public List<Medico> listaMedicoPorNome(String nome) throws Exception{
+		return this.dao.listarMedicosPorNome(nome);
+	}
+	
 }
