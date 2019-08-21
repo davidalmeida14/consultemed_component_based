@@ -102,10 +102,19 @@ public class MedicoRepository {
 	}
 
 	public Medico buscarMedicoPorCRM(String crm) {
+		
 		this.factory = emf.createEntityManager();
-		Query query = factory.createQuery("SELECT M From Medico M Where M.crm = :crm");
-		query.setParameter("crm", "crm");
-		return (Medico) query.getSingleResult();
+		Medico medicoBuscado = null;
+		try {
+			Query query = factory.createQuery("SELECT M FROM Medico M Where M.crm = :crm");
+			query.setParameter("crm", crm);
+			medicoBuscado = (Medico) query.getSingleResult();
+		}catch(Exception e) {
+			System.out.println("Erro ao buscar médico: " + e.getStackTrace());
+		}
+		
+		return medicoBuscado;
+		
 	}
 
 }

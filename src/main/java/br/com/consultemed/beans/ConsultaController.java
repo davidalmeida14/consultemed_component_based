@@ -1,10 +1,12 @@
 package br.com.consultemed.beans;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -48,35 +50,34 @@ public class ConsultaController {
 
 	@Inject
 	private PacienteService pacienteService;
-	
-	private String crmMedico;
-	
-	private String cpfPaciente;
+
 
 	public List<Consulta> listarConsultas() {
 		this.consultas = consultaService.listarConsultas();
 		return this.consultas;
 	}
-
 	public String novaConsulta() {
 		this.consulta = new Consulta();
 		return "/pages/consultas/addConsultas.xhtml?faces-redirect=true";
 	}
 
-	public String salvarConsulta() throws Exception {
-		
-//		Medico medico = new Medico();
-//		medico.setNome(crmMedico);
-//		
-//		Paciente paciente = new Paciente();
-//		paciente.setCpf(cpfPaciente);
-//		
-//		this.consulta.setMedico(medico);
-//		this.consulta.setPaciente(paciente);
-		
-		this.consultaService.salvarConsulta(this.consulta);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Consulta para o paciente" + consulta.getPaciente().getNome() + ", agendada com sucesso", null));
+	public List<Consulta> listaAgendamentoPorData(Date data){
+		LocalDate date = LocalDate.now();
+		consultaService.consultarAgendamentosPorData(date);
+		return null;
+	}
+	
+	public String salvarConsulta() {
+		try {
+			this.consultaService.salvarConsulta(this.consulta);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Consulta para o paciente" + consulta.getPaciente().getNome() + ", agendada com sucesso", null));
+			
+		}catch(Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					e.getMessage(), null));
+			
+		}
 		listarConsultas();
 		return "/pages/consultas/consultas.xhtml";
 	}
@@ -119,22 +120,6 @@ public class ConsultaController {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("Item Selected", event.getObject().toString()));
 		this.pacientes = event.getObject().toString();
-	}
-
-	public String getCpfPaciente() {
-		return cpfPaciente;
-	}
-
-	public void setCpfPaciente(String cpfPaciente) {
-		this.cpfPaciente = cpfPaciente;
-	}
-
-	public String getCrmMedico() {
-		return crmMedico;
-	}
-
-	public void setCrmMedico(String crmMedico) {
-		this.crmMedico = crmMedico;
 	}
 
 	public Consulta getConsulta() {

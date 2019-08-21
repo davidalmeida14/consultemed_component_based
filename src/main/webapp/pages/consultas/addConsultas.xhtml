@@ -4,14 +4,13 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/Layout.xhtml">
-
 	<ui:define name="content">
 
 		<p:spacer height="10" />
 
 		<h:form>
 			<p:breadCrumb>
-				<p:menuitem value="Home" url="#" />
+				<p:menuitem value="Home" url="#{request.contextPath}/pages/home.xhtml" />
 				<p:menuitem value="Consultas" url="#" />
 			</p:breadCrumb>
 		</h:form>
@@ -19,42 +18,63 @@
 		<p:spacer height="10" />
 
 
+
 		<h:form>
-			<p:messages showDetail="true" closable="true" >
+			<p:messages  closable="true" >
 				<p:autoUpdate/>
 			</p:messages>
-		 <p:panel id="cadastroConsultas" header="Agendamento de Consultas" style="margin-bottom:20px">
-		 
-			<h:panelGrid columns="2">
-			
-				<span class="ui-float-label"> 
-					<h:inputHidden value="#{consultaController.consulta.id}" /> 
-				</span>
-				
-				<h3>CPF do Paciente</h3>
-				<span class="ui-float-label"> 
-					<h:inputText id="cpf" value="#{consultaController.consulta.paciente.cpf}" required="true"/> 
-				</span>
-				
-				<h3>CRM do Médico</h3>
-				<span class="ui-float-label"> 
-					<h:inputText id="nome" value="#{consultaController.consulta.medico.crm}" required="true"/> 
-				</span>
-				 
-				<h3>Data da Consulta</h3>
-				<span class="ui-float-label"> 
-					<p:datePicker id="popup" value="#{consultaController.consulta.dataAgendamento}" />
-				</span>
-			
+		 <p:panel id="cadastroAgendamento" header="Agendamento de Consulta" style="margin-bottom:20px">
+
+			<h:inputHidden value="#{consultaController.consulta.id}" />
+
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+
+                <p:outputLabel for="data" value="Data do Agendamento:" />
+                <p:calendar id="data" value="#{consultaController.consulta.dataAgendamento}"
+                            pattern="MM/dd/yyyy HH:mm:ss"
+                            required="true"/>
+
+                <p:outputLabel for="paciente_selecionado" value="Paciente:" />
+                <p:selectOneMenu id="paciente_selecionado" value="#{consultaController.consulta.paciente}"
+                                 converter="PacienteConverter"
+                                 required="true"
+                                 requiredMessage="Selecione um Paciente">
+
+                            <f:selectItem itemLabel="Selecione um Paciente" itemValue=""/>
+
+                            <f:selectItems value="#{pacienteController.listarPacientes()}" var="paciente"
+                                           itemLabel="#{paciente.nome}"
+                                           itemValue="#{paciente}"/>
+
+                </p:selectOneMenu>
+
+
+
+                <p:outputLabel for="medico_selecionado" value="Médico:" />
+                <p:selectOneMenu id="medico_selecionado" value="#{consultaController.consulta.medico}"
+                                 converter="MedicoConverter"
+                                 required="true"
+                                 requiredMessage="Selecione um Medico">
+
+                            <f:selectItem itemLabel="Selecione um Medico" itemValue=""/>
+
+                            <f:selectItems value="#{medicoController.listaMedicos()}" var="medico"
+                                           itemLabel="#{medico.nome}"
+                                           itemValue="#{medico}"/>
+
+                </p:selectOneMenu>
+
+
 			</h:panelGrid>
-			
+
 		</p:panel>
-		
+
 			<p:commandButton action="#{consultaController.salvarConsulta()}" value="Salvar" />
-		
+
 		</h:form>
 
 
 	</ui:define>
+
 
 </ui:composition>

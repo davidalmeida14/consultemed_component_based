@@ -26,6 +26,7 @@ public class UsuarioController{
 
 	@Getter
 	@Setter
+	@Inject
 	private Usuario usuario;
 	
 	@Getter
@@ -34,6 +35,7 @@ public class UsuarioController{
 	
 	@Getter
 	@Setter
+	@Inject
 	private Usuario usuarioEditar;
 	
 	@Inject
@@ -63,9 +65,9 @@ public class UsuarioController{
 	
 	public String addUsuario() throws Exception {
 		this.service.salvarUsuario(this.usuario);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Médico " +usuario.getLogin()+ ", cadastrado com sucesso", null));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário " +usuario.getLogin()+ ", cadastrado/editado com sucesso", null));
 		listarUsuarios();
-		return "/pages/medicos/medicos.xhtml";
+		return "/pages/usuarios/usuarios.xhtml";
 	}
 	
 }

@@ -1,10 +1,10 @@
 package br.com.consultemed.repository.repositories;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.management.RuntimeErrorException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -38,12 +38,14 @@ public class ConsultaRepository {
 
 	public void salvarConsulta(Consulta consulta) {
 		this.factory = emf.createEntityManager();
+		this.factory.getTransaction().begin();
 		try {
 			if (consulta.getId() == null) {
 				this.factory.persist(consulta);
 			} else {
 				this.factory.merge(consulta);
 			}
+			this.factory.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("Erro ao salvar consulta. Erro: " + e.getStackTrace());
 			this.factory.getTransaction().rollback();
@@ -100,4 +102,45 @@ public class ConsultaRepository {
 			this.factory.close();
 		}
 	}
+	
+	public List<Consulta> validarConsultaDataHoraPorMedico(Consulta consulta){
+		
+		this.factory = emf.createEntityManager();
+		List<Consulta> consultas = new ArrayList<Consulta>();
+		
+		try {
+			Query query = factory.createQuery(
+					 "SELECT C FROM Consulta C Where C.dataAgendamento = :dataAgendamento"
+					+ "And C.medico_id = :idMedico And C.statusConsulta = :status ");
+			query.setParameter("idMedico", consulta.getMedico().getId());
+			query.setParameter("status", consulta.getStatusConsulta());
+			query.setParameter("dataAgendamento", consulta.getDataAgendamento());
+			
+			consultas = (List<Consulta>) query.getResultList();
+			
+		} catch(Exception e) {
+			System.out.println("Nenhuma consulta encontrada para o mesmo horário.");
+		}
+		
+		return consultas;
+		
+	}
+	
+	public List<Consulta> consultarAgendamentosPorData(String data){
+
+		this.factory = emf.createEntityManager();
+		List<Consulta> consultas = new ArrayList<Consulta>();
+		try {
+			Query query = factory.createNativeQuery(
+					"SELECT C FROM TB_CONSULTA C Where CAST(C.dataagendamento AS DATE) = :data "
+					);
+			query.setParameter("data", data);
+			consultas = query.getResultList();
+		}catch(Exception e) {
+			e.getStackTrace();
+		}
+		return consultas;
+	}
+	
+	
 }

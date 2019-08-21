@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
-import br.com.consultemed.models.Paciente;
 import br.com.consultemed.models.Usuario;
 import br.com.consultemed.utils.JPAUtils;
 

@@ -31,9 +31,13 @@
 				<p:column headerText="Nome do Médico">
 					<h:outputText value="#{consulta.medico.nome}" />
 				</p:column>
+				
+					<p:column headerText="Nome do Paciente">
+					<h:outputText value="#{consulta.paciente.nome}" />
+				</p:column>
 
 				<p:column headerText="Status do Agendamento">
-					<h:outputText value="#{consulta.statusAgendamento}" />
+					<h:outputText value="#{consulta.statusConsulta}" />
 				</p:column>
 
 

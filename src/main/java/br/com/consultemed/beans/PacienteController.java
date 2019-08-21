@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.consultemed.models.Medico;
 import br.com.consultemed.models.Paciente;
 import br.com.consultemed.services.PacienteService;
 import lombok.Getter;
@@ -27,6 +26,7 @@ public class PacienteController {
 	@Setter
 	private Paciente paciente;
 	
+	@Inject
 	@Getter
 	@Setter
 	private Paciente pacienteEditar;
@@ -52,7 +52,6 @@ public class PacienteController {
 	}
 	
 	public String excluir() {
-		this.paciente = this.pacienteEditar;
 		this.pacienteService.deletar(this.paciente.getId());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Médico " + paciente.getNome()+ ", excluído com sucesso", null));
 		listarPacientes();

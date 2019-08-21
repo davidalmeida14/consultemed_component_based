@@ -3,7 +3,6 @@ package br.com.consultemed.repository.security;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 import br.com.consultemed.models.Usuario;
 import br.com.consultemed.utils.JPAUtils;

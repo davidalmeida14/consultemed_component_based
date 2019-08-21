@@ -98,9 +98,15 @@ public class PacienteRepository {
 
 	public Paciente buscarPacientePorCpf(String cpf) {
 		this.factory = em.createEntityManager();
-		Query query = factory.createQuery("SELECT P FROM Paciente P Where P.cpf = :cpf");
-		query.setParameter("cpf", cpf);
-		return (Paciente) query.getSingleResult();
+		Paciente pacienteBuscado = null;
+		try {
+			Query query = factory.createQuery("SELECT P FROM Paciente P Where P.cpf = :cpf");
+			query.setParameter("cpf", cpf);
+			pacienteBuscado = (Paciente) query.getSingleResult();
+		}catch(Exception e) {
+			System.out.println(e.getStackTrace() + e.getMessage());
+		} 
+		return pacienteBuscado;
 		
 	}
 	
